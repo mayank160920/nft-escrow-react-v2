@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
+import {NavLink} from 'react-router-dom';
 
 function BidSearch(props) {
   return (
     <div className="wrapper">
-      <h1 className="heading">{props.title || 'Title Not Specified'}</h1>
+      <h1 className="heading">{props.title || "Title Not Specified"}</h1>
       <input
         type="number"
         className="input-field"
@@ -21,6 +22,9 @@ function BidSearch(props) {
       >
         Search Bid
       </a>
+      <NavLink className="bidOperation" to="/" exact>
+        Back
+      </NavLink>
     </div>
   );
 }

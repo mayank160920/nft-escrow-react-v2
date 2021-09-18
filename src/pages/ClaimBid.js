@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { TiTick } from 'react-icons/ti';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { TiTick } from "react-icons/ti";
 
-import BidSearch from '../components/BidSearch';
-import ErrorDialog from '../components/ErrorDialog';
-import BidDetails from '../components/BidDetails';
+import BidSearch from "../components/BidSearch";
+import ErrorDialog from "../components/ErrorDialog";
+import LoadingSpinner from "../components/LoadingSpinner";
+import BidDetails from "../components/BidDetails";
 import {
   fetchBidDetails,
   estimate_claim_bid_call,
   execute_claim_bid_call,
-} from '../components/web3Utils';
+} from "../components/web3Utils";
 
 function ClaimBid(props) {
-  const [error, setError] = useState('');
-  const [inputValue, setInputValue] = useState('26737973763');
+  const [error, setError] = useState("");
+  const [spinnerText, setSpinnerText] = useState("");
+  const [inputValue, setInputValue] = useState("26737973763");
   const [bidDetails, setBidDetails] = useState();
   const [bidClaimed, setBidClaimed] = useState(false);
 
@@ -24,7 +26,7 @@ function ClaimBid(props) {
       if (!bidData.status) {
         throw {
           message:
-            'Invalid Bid Id ( Recently generated bids may take some time to show )',
+            "Invalid Bid Id ( Recently generated bids may take some time to show )",
         };
       }
       setBidDetails(bidData);
@@ -36,8 +38,9 @@ function ClaimBid(props) {
 
   const claimBid = async () => {
     try {
+      setSpinnerText("Claiming Bid")
       await estimate_claim_bid_call(
-        props.currentAddress,
+          props.currentAddress,
         props.escrowContract,
         inputValue,
         bidDetails.weth_expected
@@ -47,10 +50,11 @@ function ClaimBid(props) {
         props.escrowContract,
         inputValue,
         bidDetails.weth_expected
-      );
-      setBidClaimed(true);
+        );
+        setBidClaimed(true);
     } catch (e) {
       console.log(e);
+      setSpinnerText("")
       setError(e.message);
     }
   };
@@ -58,7 +62,7 @@ function ClaimBid(props) {
   if (bidClaimed) {
     return (
       <div className="wrapper">
-        <TiTick style={{ fontSize: '5rem' }} />
+        <TiTick style={{ fontSize: "5rem" }} />
         <h3>Bid Claimed Successfully</h3>
         <NavLink className="bidOperation" to="/" exact>
           Home
@@ -69,14 +73,14 @@ function ClaimBid(props) {
 
   return (
     <>
-      {error ? <ErrorDialog error={error} setError={setError} /> : ''}
+      {error ? <ErrorDialog error={error} setError={setError} /> : ""}
+      {spinnerText ? <LoadingSpinner text={spinnerText}/> : ''}
 
       {bidDetails ? (
         <BidDetails
           bidDetails={bidDetails}
-          contractsData={props.contractsData}
           hideToggle={setBidDetails}
-          buttonTitle={'Claim Bid'}
+          buttonTitle={"Claim Bid"}
           functionalToggle={claimBid}
         />
       ) : (

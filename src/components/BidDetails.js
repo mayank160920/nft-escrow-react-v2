@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import web3 from './web3';
+import React, { useState, useEffect } from "react";
 import {
   getContract,
   fetchNFTImage,
   fetchNFTName,
   fetchNFTSymbol,
-} from './web3Utils';
+} from "./web3Utils";
+
+// json
+const contractData = require("../contract/contractData.json");
 
 function BidDetails(props) {
-  const [nftImage, setNftImage] = useState('');
-  const [nftName, setNftName] = useState('...');
-  const [nftSymbol, setNftSymbol] = useState('...');
+  const [nftImage, setNftImage] = useState("");
+  const [nftName, setNftName] = useState("...");
+  const [nftSymbol, setNftSymbol] = useState("...");
 
   const nftId = props.bidDetails.nft_id;
   const nftAddress = props.bidDetails.nft_address;
@@ -18,15 +20,17 @@ function BidDetails(props) {
   const nftSeller = props.bidDetails.nft_seller;
   const nftPrice = props.bidDetails.weth_expected;
 
+  const erc721Abi = contractData.abi.erc721_contract;
+
   const fetchTokenImageUrl = async (url) => {
     const response = await fetch(url);
     const data = await response.json();
     console.log(data);
-    return data['image'];
+    return data["image"];
   };
 
   const onLoad = async () => {
-    const nftContract = getContract(props.contractsData.abi.erc721_contract, nftAddress);
+    const nftContract = getContract(erc721Abi, nftAddress);
     const _nftName = await fetchNFTName(nftContract);
     const _nftSymbol = await fetchNFTSymbol(nftContract);
     const imageUrlApi = await fetchNFTImage(nftContract, nftId);
@@ -39,7 +43,7 @@ function BidDetails(props) {
     setNftName(_nftName);
   };
 
-  useEffect(() => onLoad(), [nftAddress]);
+  useEffect(() => onLoad(), []);
 
   return (
     <div className="wrapper">
@@ -48,7 +52,7 @@ function BidDetails(props) {
       <div className="nft-img">
         <img
           className="skeleton"
-          src={nftImage || '#'}
+          src={nftImage || "#"}
           width="300px"
           height="300px"
         />
@@ -66,26 +70,26 @@ function BidDetails(props) {
         <h4 className="bidKey">NFT Seller</h4>
         <p className="bidValue">{nftSeller}</p>
 
-        {nftBuyer != '0x0000000000000000000000000000000000000000' ? (
+        {nftBuyer != "0x0000000000000000000000000000000000000000" ? (
           <>
             <h4 className="bidKey">NFT Buyer</h4>
             <p className="bidValue">{nftBuyer}</p>
           </>
         ) : (
-          ''
+          ""
         )}
 
         <h4 className="bidKey">NFT Price</h4>
         <p className="bidValue">
           {nftPrice
-            ? `${web3.utils.fromWei(web3.utils.toBN(nftPrice))} FTM`
-            : ''}
+            ? `${Web3.utils.fromWei(Web3.utils.toBN(nftPrice))} FTM`
+            : ""}
         </p>
       </div>
       <a className="bidOperation" onClick={() => props.functionalToggle()}>
         {props.buttonTitle}
       </a>
-      <a className="bidOperation" onClick={() => props.hideToggle('')}>
+      <a className="bidOperation" onClick={() => props.hideToggle("")}>
         Back
       </a>
     </div>

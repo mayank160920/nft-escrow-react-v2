@@ -109,7 +109,7 @@ body {
 }
 
 input[type='checkbox'] {
-  transform: scale(1.5);
+  /* transform: scale(1.5); */
   margin: 10px;
 }
 
@@ -164,5 +164,36 @@ input[type='checkbox'] {
   }
   100% {
     background-color: hsl(200, 20%, 95%);
+  }
+}
+
+/* spinner */
+.spinnerCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.spinnerCard > svg {
+    background-color: transparent;
+}
+
+.spinnerCard > svg {
+    margin: 10px;
+}
+
+.rotate {
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
   }
 }

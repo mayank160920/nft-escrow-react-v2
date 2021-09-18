@@ -1,9 +1,10 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 function BidOperations() {
   return (
     <div className="wrapper">
+      <h1 className="heading">NFT ESCROW</h1>
       <NavLink className="bidOperation" to="/explorebids">
         Explore Bids
       </NavLink>

@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import BidDetails from '../components/BidDetails';
-import { NavLink } from 'react-router-dom';
-import { TiTick } from 'react-icons/ti';
+import React, { useState } from "react";
+import BidDetails from "../components/BidDetails";
+import { NavLink } from "react-router-dom";
+import { TiTick } from "react-icons/ti";
 
-import BidSearch from '../components/BidSearch';
-import ErrorDialog from '../components/ErrorDialog';
+import BidSearch from "../components/BidSearch";
+import LoadingSpinner from "../components/LoadingSpinner";
+import ErrorDialog from "../components/ErrorDialog";
 import {
   fetchBidDetails,
   estimate_remove_bid_call,
   execute_remove_bid_call,
-} from '../components/web3Utils';
+} from "../components/web3Utils";
 
 function RemoveBid(props) {
-  const [error, setError] = useState('');
-  const [inputValue, setInputValue] = useState('26737973763');
+  const [error, setError] = useState("");
+  const [spinnerText, setSpinnerText] = useState("");
+  const [inputValue, setInputValue] = useState("26737973763");
   const [bidDetails, setBidDetails] = useState();
   const [bidRemoved, setBidRemoved] = useState(false);
 
@@ -24,10 +26,10 @@ function RemoveBid(props) {
       if (!bidData.status) {
         throw {
           message:
-            'Invalid Bid Id ( Recently generated bids may take some time to show )',
+            "Invalid Bid Id ( Recently generated bids may take some time to show )",
         };
       }
-      console.log('setBidDetails');
+      console.log("setBidDetails");
       setBidDetails(bidData);
     } catch (e) {
       setError(e.message);
@@ -36,6 +38,7 @@ function RemoveBid(props) {
 
   const removeBid = async () => {
     try {
+      setSpinnerText("Removing Bid");
       await estimate_remove_bid_call(
         props.currentAddress,
         props.escrowContract,
@@ -49,6 +52,7 @@ function RemoveBid(props) {
       setBidRemoved(true);
     } catch (e) {
       console.log(e);
+      setSpinnerText("");
       setError(e.message);
     }
   };
@@ -56,7 +60,7 @@ function RemoveBid(props) {
   if (bidRemoved) {
     return (
       <div className="wrapper">
-        <TiTick style={{ fontSize: '5rem' }} />
+        <TiTick style={{ fontSize: "5rem" }} />
         <h3>Bid Removed Successfully</h3>
         <NavLink className="bidOperation" to="/" exact>
           Home
@@ -67,7 +71,8 @@ function RemoveBid(props) {
 
   return (
     <>
-      {error ? <ErrorDialog error={error} setError={setError} /> : ''}
+      {error ? <ErrorDialog error={error} setError={setError} /> : ""}
+      {spinnerText ? <LoadingSpinner text={spinnerText} /> : ""}
 
       {bidDetails ? (
         <BidDetails

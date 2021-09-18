@@ -2,14 +2,14 @@ export const connectWallet = async (web3) => {
   const accounts = await web3.eth.getAccounts();
   const chainId = await web3.eth.getChainId();
   if (chainId !== 250) {
-    throw { message: 'Select FTM Network in Your Wallet' };
+    throw { message: "Select FTM Network in Your Wallet" };
   }
   return accounts;
 };
 
 export const getContract = (abi, address) => {
   const web3 = new Web3(window.ethereum);
-  return new web3.eth.Contract(abi,address);
+  return new web3.eth.Contract(abi, address);
 };
 
 export const fetchBidDetails = async (contract, bidNumber) => {
@@ -44,16 +44,30 @@ export async function check_approval_status(
       .transferFrom(account, nftAddress, nftId)
       .estimateGas({ from: escrowAddress, value: 0 });
     return true;
-  } catch {
+  } catch(error) {
+      console.log(error)
     return false;
   }
 }
 
 export async function approve(account, nftContract, nftId, escrowAddress) {
   try {
-    await nftContract.methods.approve(escrowAddress, nftId).send({ from: account, value: 0 });
+    await nftContract.methods
+      .approve(escrowAddress, nftId)
+      .estimateGas({ from: account, value: 0 });
+    await nftContract.methods
+      .approve(escrowAddress, nftId)
+      .send({ from: account, value: 0 });
   } catch (error) {
-    throw { message: error.message, title: 'ERROR !' };
+    var error_message = error.message;
+    if (
+      error.message.includes(
+        "ERC721: approve caller is not owner nor approved for all"
+      )
+    ) {
+      error_message = "You need to be the NFT Owner to place the Bid.";
+    }
+    throw { message: error_message, title: "ERROR !" };
   }
 }
 
@@ -70,11 +84,11 @@ export async function estimate_claim_bid_call(
   } catch (error) {
     console.log(error);
     var error_message = error.message;
-    if (error.message.includes('execution reverted: Wrong Buyer')) {
+    if (error.message.includes("execution reverted: Wrong Buyer")) {
       error_message = `Buyer Address Does Not Match`;
     } else if (
       error.message.includes(
-        'execution reverted: ERC721: transfer caller is not owner nor approved'
+        "execution reverted: ERC721: transfer caller is not owner nor approved"
       )
     ) {
       error_message = `Looks like seller revoked the permission to transfer NFT`;
@@ -97,7 +111,7 @@ export async function execute_claim_bid_call(
     console.log(error);
     var error_message = error.message;
     if (error.code == -32603) {
-      throw { message: 'txn underpriced' };
+      throw { message: "txn underpriced" };
     }
     throw { message: error_message };
   }
@@ -115,20 +129,25 @@ export async function estimate_remove_bid_call(
   } catch (error) {
     console.log(error);
     var error_message = error.message;
-    if (error.message.includes('execution reverted: Invalid Key')) {
+    if (error.message.includes("execution reverted: Invalid Key")) {
       error_message = `Invalid Key`;
     }
-    if (error.message.includes('execution reverted: Wrong Buyer')) {
+    if (error.message.includes("execution reverted: Wrong Buyer")) {
       error_message = `Buyer Address Does Not Match`;
     }
     if (
+      error.message.includes("Transaction Issuer and Seller Address Mismatch")
+    ) {
+      error_message = `Only Creator can remove the Bid`;
+    }
+    if (
       error.message.includes(
-        'execution reverted: ERC721: transfer caller is not owner nor approved'
+        "execution reverted: ERC721: transfer caller is not owner nor approved"
       )
     ) {
       error_message = `Looks like seller revoked the permission to transfer NFT`;
     }
-    throw { message: error_message, title: 'ERROR !' };
+    throw { message: error_message, title: "ERROR !" };
   }
 }
 
@@ -145,9 +164,9 @@ export async function execute_remove_bid_call(
     console.log(error);
     var error_message = error.message;
     if (error.code == -32603) {
-      throw { message: 'txn underpriced', title: 'ERROR !' };
+      throw { message: "txn underpriced", title: "ERROR !" };
     }
-    throw { message: error_message, title: 'ERROR !' };
+    throw { message: error_message, title: "ERROR !" };
   }
 }
 
@@ -168,7 +187,7 @@ export async function estimate_place_bid_call(
     console.log(error);
     var error_message = error.message;
     // var error_message = 'Looks like NFT Address Is Not Supported';
-    throw { message: error_message, title: 'ERROR !' };
+    throw { message: error_message, title: "ERROR !" };
   }
 }
 
@@ -189,8 +208,8 @@ export async function execute_place_bid_call(
   } catch (error) {
     console.log(error);
     if (error.code == -32603) {
-      throw { message: 'txn underpriced', title: 'ERROR !' };
+      throw { message: "txn underpriced", title: "ERROR !" };
     }
-    throw { message: error.message, title: 'ERROR !' };
+    throw { message: error.message, title: "ERROR !" };
   }
 }
