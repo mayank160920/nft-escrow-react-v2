@@ -17,11 +17,11 @@ function Navbar(props) {
     window.ethereum.on("accountsChanged", (accounts) => {
       setCurrentAddress(accounts[0]);
       if (!accounts.length) {
-          setError('Connect Your Wallet to access the site')
+        setError('Connect Your Wallet to access the site')
       }
     });
     window.ethereum.on("chainChanged", (newChainId) => {
-      console.log("Network Changed to Chain Id : ", newChainId);
+      console.log("Network Changed to Chain Id : ", parseInt(newChainId));
       window.location.reload();
     });
     console.log("MetaMask Event Handlers Registered");
@@ -38,6 +38,12 @@ function Navbar(props) {
         registerEvents();
         setEventsRegistered(true);
       }
+
+      const chainId = await ethereum.request({ method: 'eth_chainId' });
+      if (parseInt(chainId) != 250) {
+        return setError("Please select FTM Network in your wallet")
+      }
+
       setError("");
     } catch (e) {
       console.log(e);
@@ -66,8 +72,8 @@ function Navbar(props) {
       {error ? (
         <ErrorDialog error={error} setError={setError} reload={true} />
       ) : (
-        ""
-      )}
+          ""
+        )}
     </>
   );
 }

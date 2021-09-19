@@ -44,8 +44,8 @@ export async function check_approval_status(
       .transferFrom(account, nftAddress, nftId)
       .estimateGas({ from: escrowAddress, value: 0 });
     return true;
-  } catch(error) {
-      console.log(error)
+  } catch (error) {
+    console.log(error)
     return false;
   }
 }
@@ -92,6 +92,12 @@ export async function estimate_claim_bid_call(
       )
     ) {
       error_message = `Looks like seller revoked the permission to transfer NFT`;
+    } else if (
+      error.message.includes(
+        "insufficient balance for transfer"
+      )
+    ) {
+      error_message = `Insufficient balance for transfer`;
     }
     throw { message: error_message };
   }
