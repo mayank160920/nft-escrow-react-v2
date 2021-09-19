@@ -16,6 +16,9 @@ function Navbar(props) {
   function registerEvents() {
     window.ethereum.on("accountsChanged", (accounts) => {
       setCurrentAddress(accounts[0]);
+      if (!accounts.length) {
+          setError('Connect Your Wallet to access the site')
+      }
     });
     window.ethereum.on("chainChanged", (newChainId) => {
       console.log("Network Changed to Chain Id : ", newChainId);
@@ -35,9 +38,10 @@ function Navbar(props) {
         registerEvents();
         setEventsRegistered(true);
       }
+      setError("");
     } catch (e) {
       console.log(e);
-      setError(e.message);
+      setError("Connect Your Wallet to access the site");
     }
   }
 
