@@ -3,6 +3,8 @@ import BidDetails from "../components/BidDetails";
 import { NavLink } from "react-router-dom";
 import { TiTick } from "react-icons/ti";
 
+import useQuery from "../hooks/useQuery";
+
 import BidSearch from "../components/BidSearch";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorDialog from "../components/ErrorDialog";
@@ -13,9 +15,11 @@ import {
 } from "../components/web3Utils";
 
 function RemoveBid(props) {
+  const bidNumber = useQuery().get("bid")
+
   const [error, setError] = useState("");
   const [spinnerText, setSpinnerText] = useState("");
-  const [inputValue, setInputValue] = useState("26737973763");
+  const [inputValue, setInputValue] = useState(bidNumber || "26737973763");
   const [bidDetails, setBidDetails] = useState();
   const [bidRemoved, setBidRemoved] = useState(false);
 

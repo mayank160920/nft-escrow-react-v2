@@ -108,8 +108,10 @@ function PlaceBid(props) {
       <div className="wrapper">
         <TiTick style={{ fontSize: "5rem" }} />
         <h3>Bid Placed Successfully</h3>
-        <h3>Bid Number</h3>
-        <h3 className="bidValue">{bidNumber}</h3>
+        <h4 className="bidKey">Bid Number</h4>
+        <h4 className="bidValue">{bidNumber}</h4>
+        <h4 className="bidKey">Claim Link</h4>
+        <a className="bidValue">{window.location.origin + `/claimbid?bid=${bidNumber}`}</a>
         <NavLink className="bidOperation" to="/" exact>
           Home
         </NavLink>

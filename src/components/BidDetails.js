@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {parseImageUri} from "./web3Utils"
 import {
   getContract,
   fetchNFTImage,
@@ -35,10 +36,10 @@ function BidDetails(props) {
     const _nftSymbol = await fetchNFTSymbol(nftContract);
     const imageUrlApi = await fetchNFTImage(nftContract, nftId);
     console.log(imageUrlApi);
-    const imageURL = await fetchTokenImageUrl(imageUrlApi);
+    const imageURL = await fetchTokenImageUrl(parseImageUri(imageUrlApi));
     console.log(imageURL);
 
-    setNftImage(imageURL);
+    setNftImage(parseImageUri(imageURL));
     setNftSymbol(_nftSymbol);
     setNftName(_nftName);
   };

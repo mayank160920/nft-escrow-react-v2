@@ -1,11 +1,14 @@
-export const connectWallet = async (web3) => {
-  const accounts = await web3.eth.getAccounts();
-  const chainId = await web3.eth.getChainId();
-  if (chainId !== 250) {
-    throw { message: "Select FTM Network in Your Wallet" };
+export const parseImageUri = (url) => {
+  if (url.match(/https?:\/\//)) {
+    return url;
+  } 
+  const ipfsMatch = url.match(/ipfs?:\/\/(.*)/)
+  if (ipfsMatch) {
+    return "https://ipfs.io/ipfs/"+ipfsMatch[1]
   }
-  return accounts;
-};
+  return url;
+}
+
 
 export const getContract = (abi, address) => {
   const web3 = new Web3(window.ethereum);

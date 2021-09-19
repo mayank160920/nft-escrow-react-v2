@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { TiTick } from "react-icons/ti";
 
+import useQuery from "../hooks/useQuery";
+
 import BidSearch from "../components/BidSearch";
 import ErrorDialog from "../components/ErrorDialog";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -13,9 +15,11 @@ import {
 } from "../components/web3Utils";
 
 function ClaimBid(props) {
+  const bidNumber = useQuery().get("bid")
+
   const [error, setError] = useState("");
   const [spinnerText, setSpinnerText] = useState("");
-  const [inputValue, setInputValue] = useState("26737973763");
+  const [inputValue, setInputValue] = useState(bidNumber || "26737973763");
   const [bidDetails, setBidDetails] = useState();
   const [bidClaimed, setBidClaimed] = useState(false);
 
@@ -40,7 +44,7 @@ function ClaimBid(props) {
     try {
       setSpinnerText("Claiming Bid")
       await estimate_claim_bid_call(
-          props.currentAddress,
+        props.currentAddress,
         props.escrowContract,
         inputValue,
         bidDetails.weth_expected
@@ -50,8 +54,8 @@ function ClaimBid(props) {
         props.escrowContract,
         inputValue,
         bidDetails.weth_expected
-        );
-        setBidClaimed(true);
+      );
+      setBidClaimed(true);
     } catch (e) {
       console.log(e);
       setSpinnerText("")
@@ -74,7 +78,7 @@ function ClaimBid(props) {
   return (
     <>
       {error ? <ErrorDialog error={error} setError={setError} /> : ""}
-      {spinnerText ? <LoadingSpinner text={spinnerText}/> : ''}
+      {spinnerText ? <LoadingSpinner text={spinnerText} /> : ''}
 
       {bidDetails ? (
         <BidDetails
@@ -84,13 +88,13 @@ function ClaimBid(props) {
           functionalToggle={claimBid}
         />
       ) : (
-        <BidSearch
-          title="Claim Bid"
-          inputValue={inputValue}
-          setInputValue={setInputValue}
-          handleSubmit={handleSubmit}
-        />
-      )}
+          <BidSearch
+            title="Claim Bid"
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            handleSubmit={handleSubmit}
+          />
+        )}
     </>
   );
 }
