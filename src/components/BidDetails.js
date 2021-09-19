@@ -51,12 +51,24 @@ function BidDetails(props) {
       <h1 className="heading">Bid details</h1>
 
       <div className="nft-img">
-        <img
+        {
+          nftImage.split(".").pop() == ('mp3','mp4')
+          ? (
+          <video
           className="skeleton"
           src={nftImage || "#"}
           width="300px"
           height="300px"
-        />
+          />
+          ) : (
+          <img
+          className="skeleton"
+          src={nftImage || "#"}
+          width="300px"
+          height="300px"
+          />
+          )
+        }
       </div>
 
       <div className="nft-details">
