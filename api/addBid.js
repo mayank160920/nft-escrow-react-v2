@@ -3,6 +3,8 @@ const clientPromise = require('./mongoClient');
 async function addBid(req, res) {
     try {
         const data = req.body;
+        console.log(req.body)
+        console.log(req.body._id)
 
         const client = await clientPromise;
         const database = client.db(process.env.DB_NAME);
