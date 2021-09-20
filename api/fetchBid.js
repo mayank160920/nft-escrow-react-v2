@@ -6,7 +6,7 @@ async function fetchBid(req, res) {
         const database = client.db(process.env.DB_NAME);
         const col = database.collection(process.env.COL_NAME);
 
-        const data = await col.find().limit(20);
+        const data = await col.find({}).limit(20);
         res.status(200).json({ status : "success", result : data });
 
     } catch (e) {
