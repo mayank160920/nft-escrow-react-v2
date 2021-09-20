@@ -1,6 +1,6 @@
 {
   "address": {
-    "escrow_contract": "0xf05f8a5c7c28b7019bc97e2c54720c771b4f2aea"
+    "escrow_contract": "0x912B496B41f380bf8436b57bd4B9a9d89033b4b7"
   },
   "abi": {
     "erc721_contract": [
