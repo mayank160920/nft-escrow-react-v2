@@ -2,7 +2,7 @@ const clientPromise = require('./mongoClient');
 
 async function removeBid(req, res) {
     try {
-        const data = req.data;
+        const data = req.body;
 
         const client = await clientPromise;
         const database = client.db(process.env.DB_NAME);
