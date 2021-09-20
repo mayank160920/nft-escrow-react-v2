@@ -23,7 +23,7 @@ function App() {
 
   async function fetchContractsInfo() {
     // const _url = 'https://cors-bypass.jmethew76.workers.dev/https://nft-escrow-tombhead.vercel.app/api/data';
-    const _url = 'https://cors-bypass.jmethew76.workers.dev/https://jsonkeeper.com/b/J8WV';
+    const _url = 'https://cors-bypass.jmethew76.workers.dev/https://jsonkeeper.com/b/Z3FX';
     const response = await fetch(_url);
     const data = await response.json();
     return data;
