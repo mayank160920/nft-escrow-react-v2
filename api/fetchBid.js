@@ -1,4 +1,4 @@
-const clientPromise = require('./mongodb-client');
+const clientPromise = require('./mongoClient');
 
 async function fetchBid(req, res) {
     try {
