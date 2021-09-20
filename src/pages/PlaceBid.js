@@ -76,7 +76,7 @@ function PlaceBid(props) {
       }
 
       setSpinnerText("Placing Bid");
-      await estimate_place_bid_call(
+      const gas = await estimate_place_bid_call(
         currentAddress,
         escrowContract,
         _bidNumber,
@@ -92,7 +92,8 @@ function PlaceBid(props) {
         nftId,
         nftAddress,
         nftBuyer,
-        Web3.utils.toWei(nftPrice)
+        Web3.utils.toWei(nftPrice),
+        gas
       );
       setSpinnerText("");
       setBidNumber(_bidNumber);

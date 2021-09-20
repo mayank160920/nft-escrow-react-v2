@@ -1,12 +1,13 @@
 export const parseImageUri = (url) => {
+  const _proxy = 'https://cors-bypass.jmethew76.workers.dev/'
   if (url.match(/https?:\/\//)) {
-    return url;
+    return _proxy + url;
   } 
   const ipfsMatch = url.match(/ipfs?:\/\/(.*)/)
   if (ipfsMatch) {
-    return "https://ipfs.io/ipfs/"+ipfsMatch[1]
+    return _proxy + "https://ipfs.io/ipfs/"+ipfsMatch[1]
   }
-  return url;
+  return _proxy + url;
 }
 
 
@@ -189,7 +190,7 @@ export async function estimate_place_bid_call(
   nftPrice
 ) {
   try {
-    await escrowContract.methods
+    return await escrowContract.methods
       .place_bid(bidNumber, nftId, nftAddress, account, buyerAddress, nftPrice)
       .estimateGas({ from: account, value: 0 });
   } catch (error) {
@@ -207,12 +208,15 @@ export async function execute_place_bid_call(
   nftId,
   nftAddress,
   buyerAddress,
-  nftPrice
+  nftPrice,
+  gas=null
 ) {
   try {
+    var txnDict = { from: account, value: 0 }
+    gas ? txnDict.gas = gas : null
     const txn = await escrowContract.methods
       .place_bid(bidNumber, nftId, nftAddress, account, buyerAddress, nftPrice)
-      .send({ from: account, value: 0 });
+      .send(txnDict);
     console.log(txn);
   } catch (error) {
     console.log(error);
