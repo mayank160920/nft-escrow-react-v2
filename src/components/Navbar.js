@@ -32,7 +32,7 @@ function Navbar(props) {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-      setCurrentAddress(accounts[0]);
+      setCurrentAddress(web3.utils.toChecksumAddress(accounts[0]));
 
       if (!eventsRegistered) {
         registerEvents();
