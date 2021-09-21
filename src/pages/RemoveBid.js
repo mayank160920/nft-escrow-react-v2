@@ -25,6 +25,9 @@ function RemoveBid(props) {
 
   const handleSubmit = async () => {
     try {
+      if (!inputValue) {
+        throw {message : "No Bid Number Provided"}
+      }
       const bidData = await fetchBidDetails(props.escrowContract, inputValue);
       console.log(bidData);
       if (!bidData.status) {

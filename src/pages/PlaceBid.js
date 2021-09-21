@@ -25,7 +25,7 @@ function PlaceBid(props) {
 
   const [nftId, setNftId] = useState("");
   const [nftAddress, setNftAddress] = useState("");
-  const [nftBuyer, setNftBuyer] = useState("");
+  const [nftBuyer, setNftBuyer] = useState("0x0000000000000000000000000000000000000000");
   const [nftPrice, setNftPrice] = useState("");
 
   const erc721Abi = contractData.abi.erc721_contract;
