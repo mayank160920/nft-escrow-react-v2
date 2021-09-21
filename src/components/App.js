@@ -83,7 +83,6 @@ function App() {
 
         <Route path="/mybids">
           <MyBids
-            escrowContract={escrowContract}
             currentAddress={currentAddress}          
           />
         </Route>

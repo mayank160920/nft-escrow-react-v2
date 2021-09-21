@@ -7,14 +7,14 @@ function MyBids(props) {
     const [Bids,setBids] = useState([]);
 
     async function fetchBids(address) {
-        const _url = "https://cors-bypass.jmethew76.workers.dev/https://nft-escrow-react-v2.vercel.app/api/fetchBid"
+        const _url = `https://cors-bypass.jmethew76.workers.dev/https://nft-escrow-react-v2.vercel.app/api/fetchBid?address=${address}`
         const response = await fetch(_url)
         const resJson = await response.json()
         console.log(resJson['result'])
         setBids(resJson['result']);
     }
 
-    useEffect(() => fetchBids(),[])
+    useEffect(() => fetchBids(props.currentAddress),[])
 
     return (
         <div className="myBids-container">

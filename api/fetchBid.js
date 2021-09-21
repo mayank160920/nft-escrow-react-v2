@@ -9,12 +9,14 @@ async function fetchBid(req, res) {
         if (req.query.address) {
             const query = {"seller":req.query.address}
             const _data = await col.find({});
+            const data = await _data.toArray()
+            res.status(200).json({ status : "success", result : data });
         } else {
             const query = {}
             const _data = await col.find(query).limit(20);
+            const data = await _data.toArray()
+            res.status(200).json({ status : "success", result : data });
         }
-        const data = await _data.toArray()
-        res.status(200).json({ status : "success", result : data });
 
     } catch (e) {
         res.status(400).json({ error : e.message });
