@@ -223,8 +223,9 @@ input[type='checkbox'] {
 
 /* home page */
 .homeWrapper {
-    display: flex;
-    align-items: center;    
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
     height: calc(100vh - 50px);
     margin: 0px 50px ;
 }
@@ -245,7 +246,8 @@ input[type='checkbox'] {
 @media only screen and (max-width: 600px) {
 
     .homeWrapper {
-        flex-direction: column;
+        grid-template-columns: none;
+        height: calc(100vh - 90px);
         margin: 20px 0px;
     }
     .homeWrapper > h1 {
