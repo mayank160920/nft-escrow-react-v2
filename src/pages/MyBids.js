@@ -22,12 +22,15 @@ function MyBids(props) {
         setSpinnerText("")
       }
     }
-
+    
     useEffect(() => fetchBids(props.currentAddress),[])
+
+    if (spinnerText) {
+        return (<LoadingSpinner text={spinnerText} />);
+    }
 
     return (
       <>
-        {spinnerText ? <LoadingSpinner text={spinnerText} /> : ""}
         <div className="myBids-container">
             { Bids.length != 0 
                 ? Bids.map((bid) => (

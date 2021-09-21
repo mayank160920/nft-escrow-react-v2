@@ -72,7 +72,7 @@ body {
 .bidOperation {
   background-color: white;
   border-radius: 5px;
-  border-width: thick;
+  border-width: 3px;
   border-style: solid;
   width: 100%;
   text-align: center;
@@ -246,7 +246,7 @@ input[type='checkbox'] {
 
     .homeWrapper {
         flex-direction: column;
-        margin: 0px;
+        margin: 20px 0px;
     }
     .homeWrapper > h1 {
         font-size: 35px;

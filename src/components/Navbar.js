@@ -15,7 +15,7 @@ function Navbar(props) {
 
   function registerEvents() {
     window.ethereum.on("accountsChanged", (accounts) => {
-      setCurrentAddress(accounts[0]);
+      setCurrentAddress(Web3.utils.toChecksumAddress(accounts[0]));
       if (!accounts.length) {
         setError('Connect Your Wallet to access the site')
       }
