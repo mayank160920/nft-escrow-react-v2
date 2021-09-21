@@ -3,13 +3,14 @@ import { Route, Switch } from 'react-router-dom';
 
 import {getContract} from './web3Utils';
 import Navbar from './Navbar';
-import BidOperations from './BidOperations';
+
 import ErrorDialog from '../components/ErrorDialog';
 import PlaceBid from '../pages/PlaceBid';
 import ClaimBid from '../pages/ClaimBid';
 import RemoveBid from '../pages/RemoveBid';
-import MyBids from '../pages/MyBids';
 import ExploreBids from '../pages/ExploreBids';
+import Home from '../pages/Home';
+import MyBids from '../pages/MyBids';
 
 // styles
 import '../style.css';
@@ -50,7 +51,7 @@ function App() {
       <Switch>
 
         <Route path="/" exact>
-          <BidOperations />
+          <Home />
         </Route>
 
         <Route path="/placebid">
