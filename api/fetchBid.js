@@ -8,7 +8,7 @@ async function fetchBid(req, res) {
 
         if (req.query.address) {
             const query = {"seller":req.query.address}
-            const _data = await col.find({});
+            const _data = await col.find(query);
             const data = await _data.toArray()
             res.status(200).json({ status : "success", result : data });
         } else {
