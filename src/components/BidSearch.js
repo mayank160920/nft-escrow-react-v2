@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function BidSearch(props) {
   return (
@@ -22,6 +22,13 @@ function BidSearch(props) {
       >
         Search Bid
       </a>
+      {props.showMyBid
+        ? (
+          <NavLink className="bidOperation" to="/myBids" exact>
+            My Bids
+        </NavLink>
+        ) : ""
+      }
       <NavLink className="bidOperation" to="/" exact>
         Back
       </NavLink>

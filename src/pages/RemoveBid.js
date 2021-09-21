@@ -91,8 +91,10 @@ function RemoveBid(props) {
           inputValue={inputValue}
           setInputValue={setInputValue}
           handleSubmit={handleSubmit}
+          showMyBid={true}
         />
       )}
+
     </>
   );
 }
