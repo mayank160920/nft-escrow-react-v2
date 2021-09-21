@@ -6,7 +6,13 @@ async function fetchBid(req, res) {
         const database = client.db(process.env.DB_NAME);
         const col = database.collection(process.env.COL_NAME);
 
-        const _data = await col.find({}).limit(20);
+        if (req.query.address) {
+            const query = {"seller":req.query.address}
+            const _data = await col.find({});
+        } else {
+            const query = {}
+            const _data = await col.find(query).limit(20);
+        }
         const data = await _data.toArray()
         res.status(200).json({ status : "success", result : data });
 
