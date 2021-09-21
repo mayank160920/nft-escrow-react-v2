@@ -23,14 +23,10 @@ function PlaceBid(props) {
   const [bidNumber, setBidNumber] = useState("");
   const [buyerAddressProvided, setBuyerAddressProvided] = useState(false);
 
-  const [nftId, setNftId] = useState("263");
-  const [nftAddress, setNftAddress] = useState(
-    "0x41a7cf08157c9900689163a4a9930f8684aa58b7"
-  );
-  const [nftBuyer, setNftBuyer] = useState(
-    "0x0000000000000000000000000000000000000000"
-  );
-  const [nftPrice, setNftPrice] = useState("1000000000000000000");
+  const [nftId, setNftId] = useState("");
+  const [nftAddress, setNftAddress] = useState("");
+  const [nftBuyer, setNftBuyer] = useState("");
+  const [nftPrice, setNftPrice] = useState("");
 
   const erc721Abi = contractData.abi.erc721_contract;
   const escrowAddress = contractData.address.escrow_contract;
@@ -112,7 +108,9 @@ function PlaceBid(props) {
         <h4 className="bidKey">Bid Number</h4>
         <h4 className="bidValue">{bidNumber}</h4>
         <h4 className="bidKey">Claim Link</h4>
-        <a className="bidValue">{window.location.origin + `/claimbid?bid=${bidNumber}`}</a>
+        <a className="bidValue">
+          {window.location.origin + `/claimbid?bid=${bidNumber}`}
+        </a>
         <NavLink className="bidOperation" to="/" exact>
           Home
         </NavLink>

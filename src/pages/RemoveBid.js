@@ -19,7 +19,7 @@ function RemoveBid(props) {
 
   const [error, setError] = useState("");
   const [spinnerText, setSpinnerText] = useState("");
-  const [inputValue, setInputValue] = useState(bidNumber || "26737973763");
+  const [inputValue, setInputValue] = useState(bidNumber || "");
   const [bidDetails, setBidDetails] = useState();
   const [bidRemoved, setBidRemoved] = useState(false);
 

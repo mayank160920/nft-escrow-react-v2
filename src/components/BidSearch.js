@@ -24,7 +24,7 @@ function BidSearch(props) {
       </a>
       {props.showMyBid
         ? (
-          <NavLink className="bidOperation" to="/myBids" exact>
+          <NavLink className="bidOperation" to="/mybids" exact>
             My Bids
         </NavLink>
         ) : ""

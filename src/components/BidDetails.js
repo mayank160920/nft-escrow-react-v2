@@ -5,6 +5,7 @@ import {
   fetchNFTImage,
   fetchNFTName,
   fetchNFTSymbol,
+  fetchTokenImageUrl
 } from "./web3Utils";
 
 // json
@@ -22,13 +23,6 @@ function BidDetails(props) {
   const nftPrice = props.bidDetails.weth_expected;
 
   const erc721Abi = contractData.abi.erc721_contract;
-
-  const fetchTokenImageUrl = async (url) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data);
-    return data["image"];
-  };
 
   const onLoad = async () => {
     const nftContract = getContract(erc721Abi, nftAddress);

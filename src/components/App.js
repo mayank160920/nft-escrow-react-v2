@@ -8,6 +8,7 @@ import ErrorDialog from '../components/ErrorDialog';
 import PlaceBid from '../pages/PlaceBid';
 import ClaimBid from '../pages/ClaimBid';
 import RemoveBid from '../pages/RemoveBid';
+import MyBids from '../pages/MyBids';
 import ExploreBids from '../pages/ExploreBids';
 
 // styles
@@ -68,6 +69,20 @@ function App() {
 
         <Route path="/removebid">
           <RemoveBid
+            escrowContract={escrowContract}
+            currentAddress={currentAddress}          
+          />
+        </Route>
+
+        <Route path="/removebid">
+          <RemoveBid
+            escrowContract={escrowContract}
+            currentAddress={currentAddress}          
+          />
+        </Route>
+
+        <Route path="/mybids">
+          <MyBids
             escrowContract={escrowContract}
             currentAddress={currentAddress}          
           />

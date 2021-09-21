@@ -10,6 +10,13 @@ export const parseImageUri = (url) => {
   return _proxy + url;
 }
 
+export const fetchTokenImageUrl = async (url) => {
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+    return data["image"];
+};
+
 
 export const getContract = (abi, address) => {
   const web3 = new Web3(window.ethereum);
