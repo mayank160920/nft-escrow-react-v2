@@ -5,6 +5,7 @@ import {getContract} from './web3Utils';
 import Navbar from './Navbar';
 
 import ErrorDialog from '../components/ErrorDialog';
+import Banner from '../components/Banner';
 import PlaceBid from '../pages/PlaceBid';
 import ClaimBid from '../pages/ClaimBid';
 import RemoveBid from '../pages/RemoveBid';
@@ -47,6 +48,7 @@ function App() {
   return (
     <div>
       <Navbar address={currentAddress} setCurrentAddress={setCurrentAddress} />
+      <Banner/>
       {error ? <ErrorDialog error={error} setError={setError} /> : ''}
       <Switch>
 

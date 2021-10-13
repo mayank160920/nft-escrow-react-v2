@@ -226,8 +226,9 @@ input[type='checkbox'] {
     display: grid;
     grid-template-columns: 50% 50%;
     align-items: center;
-    height: calc(100vh - 50px);
     margin: 0px 50px ;
+    /* height: calc(100vh - 50px); */
+    height: calc(100vh - 250px);  /*if <Banner/> */
 }
 
 .homeWrapper > h1 {
