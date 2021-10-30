@@ -12,7 +12,7 @@ function Navbar(props) {
   function parseAddress(address) {
     return address.slice(0, 4) + "..." + address.slice(-4);
   }
-
+  
   function registerEvents() {
     window.ethereum.on("accountsChanged", (accounts) => {
       setCurrentAddress(Web3.utils.toChecksumAddress(accounts[0]));
